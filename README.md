@@ -1,40 +1,53 @@
-# 💰 Controle de Gastos Residenciais
+# Controle de Gastos Residenciais
 
-Sistema web desenvolvido para gerenciamento de pessoas, transações e consolidação de relatórios de receitas e despesas.
+Sistema web para gerenciamento de pessoas, transações e consulta de receitas, despesas e saldo.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias
 
 ### Backend
-- **C# / .NET**
-- **Entity Framework Core**
-- **PostgreSQL**
-- **Swagger / OpenAPI**
+- C#
+- .NET
+- ASP.NET Core
+- Entity Framework Core
+- PostgreSQL
 
 ### Frontend
-- **React + TypeScript**
-- **Vite**
-- **Axios**
-- **CSS3 (Variáveis Globais)**
+- React
+- TypeScript
+- Vite
+- Axios
 
----
+## Funcionalidades
 
-## ⚙️ Regras de Negócio Implementadas
+- Cadastro, listagem e remoção de pessoas
+- Cadastro e listagem de transações
+- Remoção em cascata das transações ao excluir uma pessoa
+- Validação para impedir receitas de menores de 18 anos
+- Consulta de totais por pessoa e total geral
 
-1. **Gestão de Pessoas:** Cadastro, listagem e remoção em cascata (ao deletar uma pessoa, todas as suas transações são removidas).
-2. **Gestão de Transações:** Cadastro e listagem. Validação automática impedindo o lançamento de **Receitas** para menores de 18 anos.
-3. **Consulta de Totais:** Apresentação do total de receitas, despesas e saldo individual por pessoa, além do resumo consolidador com o saldo líquido geral de todos os cadastrados.
+## Como executar
 
----
+### Backend
 
-## 🛠️ Como Executar o Projeto
-
-### Pré-requisitos
-- **Node.js** (v18+)
-- **.NET SDK** (v8+)
-- **PostgreSQL**
-
-### 1. Backend
 ```bash
 cd backend
 dotnet restore
+dotnet ef database update
 dotnet run
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Banco de dados
+
+Configure a string de conexão no arquivo `backend/appsettings.json` e execute as migrações com:
+
+```bash
+dotnet ef database update
+```
