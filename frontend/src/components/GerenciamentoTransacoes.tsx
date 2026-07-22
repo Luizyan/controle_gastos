@@ -169,21 +169,26 @@ export function GerenciamentoTransacoes() {
           </thead>
           <tbody>
             {transacoes.map((item) => {
-              const eReceita = String(item.tipo).toLowerCase() === 'receita' || item.tipo === 0;
-              return (
-                <tr key={item.id} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: '0.75rem' }}>{item.descricao}</td>
-                  <td style={{ padding: '0.75rem' }}>
-                    {(item as any).pessoa?.nome || item.nomePessoa || 'Pessoa'}
-                  </td>
-                  <td style={{ padding: '0.75rem', fontWeight: 'bold', color: eReceita ? '#27ae60' : '#c0392b' }}>
-                    {eReceita ? 'Receita' : 'Despesa'}
-                  </td>
-                  <td style={{ padding: '0.75rem', fontWeight: 'bold', color: eReceita ? '#27ae60' : '#c0392b' }}>
-                    {eReceita ? '+' : '-'} {formatarMoeda(item.valor)}
-                  </td>
-                </tr>
-              );
+            const eReceita = String(item.tipo).toLowerCase() === 'receita' || item.tipo === 0;
+
+                const pessoaDaTransacao = pessoas.find(
+                    (p) => String(p.id) === String(item.pessoaId)
+                );
+                const nomePessoaExibido =
+                    (item as any).pessoa?.nome || item.nomePessoa || pessoaDaTransacao?.nome || 'Pessoa desconhecida';
+
+                return (
+                    <tr key={item.id} style={{ borderBottom: '1px solid #eee' }}>
+                    <td style={{ padding: '0.75rem' }}>{item.descricao}</td>
+                    <td style={{ padding: '0.75rem' }}>{nomePessoaExibido}</td>
+                    <td style={{ padding: '0.75rem', fontWeight: 'bold', color: eReceita ? '#27ae60' : '#c0392b' }}>
+                        {eReceita ? 'Receita' : 'Despesa'}
+                    </td>
+                    <td style={{ padding: '0.75rem', fontWeight: 'bold', color: eReceita ? '#27ae60' : '#c0392b' }}>
+                        {eReceita ? '+' : '-'} {formatarMoeda(item.valor)}
+                    </td>
+                    </tr>
+                );
             })}
           </tbody>
         </table>
